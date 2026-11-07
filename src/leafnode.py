@@ -3,7 +3,7 @@ from htmlnode import HTMLNode
 
 class LeafNode(HTMLNode):
     def __init__(
-        self, value: str, tag: str | None = None, props: dict[str, str] | None = None
+        self, tag: str | None, value: str, props: dict[str, str] | None = None
     ):
         super().__init__(tag, value, None, props)
 
