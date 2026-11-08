@@ -70,7 +70,6 @@ def split_nodes_image(old_nodes: list[TextNode]) -> list[TextNode]:
         for image_alt, image_link in images_data:
 
             sections = original_text.split(f"![{image_alt}]({image_link})", 1)
-            print(sections)
 
             if len(sections[0]):
                 new_nodes.append(TextNode(sections[0], TextType.PLAIN_TEXT))
