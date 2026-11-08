@@ -1,5 +1,6 @@
 import unittest
 from textnode import TextNode, TextType, text_node_to_html_node
+from text_to_textnodes import text_to_textnodes
 from split_nodes import split_nodes_delimiter, split_nodes_image, split_nodes_link
 from extract_md import extract_markdown_images, extract_markdown_links
 
@@ -87,6 +88,28 @@ class TestTextNode(unittest.TestCase):
                 TextNode(
                     "to youtube", TextType.LINK, "https://www.youtube.com/@bootdotdev"
                 ),
+            ],
+            new_nodes,
+        )
+
+    def test_text_to_nodes(self):
+        text = "This is **text** with an _italic_ word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
+        new_nodes = text_to_textnodes(text)
+
+        self.assertEqual(
+            [
+                TextNode("This is ", TextType.PLAIN_TEXT),
+                TextNode("text", TextType.BOLD_TEXT),
+                TextNode(" with an ", TextType.PLAIN_TEXT),
+                TextNode("italic", TextType.ITALIC_TEXT),
+                TextNode(" word and a ", TextType.PLAIN_TEXT),
+                TextNode("code block", TextType.CODE_TEXT),
+                TextNode(" and an ", TextType.PLAIN_TEXT),
+                TextNode(
+                    "obi wan image", TextType.IMAGE, "https://i.imgur.com/fJRm4Vk.jpeg"
+                ),
+                TextNode(" and a ", TextType.PLAIN_TEXT),
+                TextNode("link", TextType.LINK, "https://boot.dev"),
             ],
             new_nodes,
         )
