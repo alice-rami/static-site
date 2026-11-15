@@ -1,8 +1,7 @@
 import os
 import shutil
 
-from textnode import TextNode, TextType
-from htmlnode import HTMLNode
+from generate_page import generate_page
 
 
 def list_and_copy(source_dir: str, target_dir: str) -> None:
@@ -28,6 +27,8 @@ def copy_from_static_to_public() -> None:
 
 def main():
     copy_from_static_to_public()
+
+    generate_page("content/index.md", "template.html", "public/index.html")
 
 
 main()

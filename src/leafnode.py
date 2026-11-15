@@ -8,10 +8,11 @@ class LeafNode(HTMLNode):
         super().__init__(tag, value, None, props)
 
     def to_html(self):
-        if not self.value:
-            raise ValueError
+        if self.value is None:
+            msg = f"no value: {self.value} in {self}"
+            raise ValueError(msg)
 
         if not self.tag:
             return self.value
 
-        return f"<{self.tag}>{self.value}</{self.tag}>"
+        return f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"

@@ -31,18 +31,22 @@ class TextNode:
 def text_node_to_html_node(text_node: TextNode) -> LeafNode:
     match text_node.text_type:
         case TextType.PLAIN_TEXT:
-            return LeafNode(None, text_node.text)
+            return LeafNode(tag=None, value=text_node.text)
         case TextType.BOLD_TEXT:
-            return LeafNode("b", text_node.text)
+            return LeafNode(tag="b", value=text_node.text)
         case TextType.ITALIC_TEXT:
-            return LeafNode("i", text_node.text)
+            return LeafNode(tag="i", value=text_node.text)
         case TextType.CODE_TEXT:
-            return LeafNode("code", text_node.text)
+            return LeafNode(tag="code", value=text_node.text)
         case TextType.LINK:
-            return LeafNode("a", text_node.text, {"href": text_node.url or ""})
+            return LeafNode(
+                tag="a", value=text_node.text, props={"href": text_node.url or ""}
+            )
         case TextType.IMAGE:
             return LeafNode(
-                "img", "", {"src": text_node.url or "", "alt": text_node.text}
+                tag="img",
+                value="",
+                props={"src": text_node.url or "", "alt": text_node.text},
             )
         case _:
             raise Exception("invalid type")

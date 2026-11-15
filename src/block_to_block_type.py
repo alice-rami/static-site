@@ -17,7 +17,12 @@ def block_to_block_type(md_block: str) -> BlockType:
     if all(line.startswith("- ") for line in lines):
         return BlockType.UL
 
-    if all(line.startswith(". ") for line in lines):
+    if lines[0].startswith("1. "):
+        i = 1
+        for line in lines:
+            if not line.startswith(f"{i}. "):
+                return BlockType.PARAGRAPH
+            i += 1
         return BlockType.OL
 
     return BlockType.PARAGRAPH

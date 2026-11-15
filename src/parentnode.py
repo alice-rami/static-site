@@ -1,11 +1,12 @@
 from htmlnode import HTMLNode
+from leafnode import LeafNode
 
 
 class ParentNode(HTMLNode):
     def __init__(
         self,
         tag: str | None,
-        children: list[HTMLNode] | None,
+        children: list[HTMLNode | LeafNode] | None,
         props: dict[str, str] | None = None,
     ):
         super().__init__(tag, None, children, props)
@@ -21,4 +22,4 @@ class ParentNode(HTMLNode):
         for child in self.children:
             content += child.to_html()
 
-        return f"<{self.tag}>{content}</{self.tag}>"
+        return f"<{self.tag}{self.props_to_html()}>{content}</{self.tag}>"
