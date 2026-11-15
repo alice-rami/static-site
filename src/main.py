@@ -1,6 +1,7 @@
 import os
 import shutil
 import sys
+from pathlib import Path
 
 from generate_page import generate_pages_recursive
 
@@ -20,10 +21,13 @@ def list_and_copy(source_dir: str, target_dir: str) -> None:
 
 
 def copy_from_static_to_public() -> None:
-    if os.path.exists("docs"):
-        shutil.rmtree("docs")
+    target_dir = "docs"
+    if os.path.exists(target_dir):
+        shutil.rmtree(target_dir)
 
     list_and_copy("static", "docs")
+    with open(os.path.join(target_dir, ".nojekyll"), "w") as f:
+        f.write("")
 
 
 def main():
