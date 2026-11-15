@@ -1,7 +1,7 @@
 import os
 import shutil
 
-from generate_page import generate_page
+from generate_page import generate_pages_recursive
 
 
 def list_and_copy(source_dir: str, target_dir: str) -> None:
@@ -28,7 +28,7 @@ def copy_from_static_to_public() -> None:
 def main():
     copy_from_static_to_public()
 
-    generate_page("content/index.md", "template.html", "public/index.html")
+    generate_pages_recursive("content/", "template.html", "public/")
 
 
 main()
