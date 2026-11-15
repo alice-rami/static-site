@@ -1,5 +1,6 @@
 import os
 import shutil
+import sys
 
 from generate_page import generate_pages_recursive
 
@@ -19,16 +20,19 @@ def list_and_copy(source_dir: str, target_dir: str) -> None:
 
 
 def copy_from_static_to_public() -> None:
-    if os.path.exists("public"):
-        shutil.rmtree("public")
+    if os.path.exists("docs"):
+        shutil.rmtree("docs")
 
-    list_and_copy("static", "public")
+    list_and_copy("static", "docs")
 
 
 def main():
+    basepath: str = "/"
+    if len(sys.argv) > 1:
+        basepath = sys.argv[1]
     copy_from_static_to_public()
 
-    generate_pages_recursive("content/", "template.html", "public/")
+    generate_pages_recursive("content/", "template.html", "docs/", basepath=basepath)
 
 
 main()
